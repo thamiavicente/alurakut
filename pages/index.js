@@ -1,7 +1,7 @@
 import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons';
-import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
+import ProfileRelationsBox from '../src/components/ProfileRelationsBox';
 import React from 'react';
 
 function ProfileSidebar(props){
@@ -23,8 +23,15 @@ function ProfileSidebar(props){
 }
 
 export default function Home() {
-  const [comunidades, setComunidades ] = React.useState([]);
-
+  // const [comunidades, setComunidades ] = React.useState([
+  const comunidades = ([
+    {
+      id: '48349837482394873298423',
+      title: 'ola',
+      image: 'https://images.unsplash.com/photo-1520549421221-3e77d246063d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80'
+    }
+  ]);
+  const [seguidores, setSeguidores ] = React.useState([]);
   const githubUser = 'thamiavicente';
   const pessoasFavoritas = [
     'vinimyls',
@@ -34,6 +41,13 @@ export default function Home() {
     'marraia',
     'ReGiovannini'
   ];
+
+  React.useEffect(function() {
+    fetch(`https://api.github.com/users/${githubUser}/folowers`)
+    .then (function (respostaServidor) {
+      
+    });
+  }, []);
 
   return (
     <>
@@ -93,42 +107,11 @@ export default function Home() {
         </div>
 
         <div style={{gridArea: 'profileRelationsArea'}}>
-          <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Amigos ({pessoasFavoritas.length})
-            </h2>
-            <ul>
-            {pessoasFavoritas.map((itemAtual) => {
-              return (
-                <li key={itemAtual}>
-                  <a href={`/users/${itemAtual}`}>
-                    <img src={`https://github.com/${itemAtual}.png`} />
-                    <span>{itemAtual}</span>
-                  </a>
-                </li>
-              )
-            })}
-            </ul>
-            </ProfileRelationsBoxWrapper>
+          {/* <ProfileRelationsBox title="Comunidades" categoria={comunidades} />          */}
 
-            <ProfileRelationsBoxWrapper>
-            <h2 className="smallTitle">
-              Comunidades ({comunidades.length})
-            </h2>
-            <ul>
-            {comunidades.map((itemAtual) => {
-              return (
-                <li key={itemAtual.id}>
-                  <a href={`/community/${itemAtual.title}`} key={itemAtual.title}>
-                    <img src={itemAtual.image} />
-                    <span>{itemAtual.title}</span>
-                  </a>
-                </li>
-              )
-            })}
-            </ul>
-            
-          </ProfileRelationsBoxWrapper>
+          <ProfileRelationsBox title="Amigos" categoria={pessoasFavoritas} />
+
+          <ProfileRelationsBox title="Seguidores" categoria={pessoasFavoritas} />
         </div>
       </MainGrid>
     </>
