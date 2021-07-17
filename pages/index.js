@@ -23,44 +23,54 @@ function ProfileSidebar(props){
 }
 
 export default function Home() {
-  // const [comunidades, setComunidades ] = React.useState([
-  const comunidades = ([
-    {
-      id: '48349837482394873298423',
-      title: 'Arco-Íris que Codam',
-      image: 'https://images.unsplash.com/photo-1520549421221-3e77d246063d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80'
-    }
-  ]);
-
   const githubUser = 'thamiavicente';
+
+  const [comunidadesTitle, setComunidadesTitle] = React.useState([]);
+  const [comunidadesImage, setComunidadesImage] = React.useState([]);
+
+  const [comunidades, setComunidades ] = React.useState([]);
   const [seguidores, setSeguidores ] = React.useState([]);
   const [seguindo, setSeguindo ] = React.useState([]);
   const [infosPerfil, setInfosPerfil ] = React.useState([]);
 
   React.useEffect(function() {
+    // API Github
     fetch(`https://api.github.com/users/${githubUser}`)
-    .then(function (respostaInfosPerfil) {
-      return respostaInfosPerfil.json();
-    })
-    .then(function(respostaCompletaInfosPerfil) {
-      setInfosPerfil(respostaCompletaInfosPerfil);
-    })
+    .then((respostaInfosPerfil) => respostaInfosPerfil.json())
+    .then((respostaCompletaInfosPerfil) => {setInfosPerfil(respostaCompletaInfosPerfil)});
 
     fetch(`https://api.github.com/users/${githubUser}/followers`)
-    .then(function (respostaSeguidores) {
-      return respostaSeguidores.json();
-    })
-    .then(function(respostaCompletaSeguidores) {
-      setSeguidores(respostaCompletaSeguidores);
-    })
+    .then((respostaSeguidores) => respostaSeguidores.json())
+    .then((respostaCompletaSeguidores) => {setSeguidores(respostaCompletaSeguidores)});
 
     fetch(`https://api.github.com/users/${githubUser}/following`)
-    .then(function (respostaSeguindo) {
-      return respostaSeguindo.json();
+    .then((respostaSeguindo) => respostaSeguindo.json())
+    .then((respostaCompletaSeguindo) => {setSeguindo(respostaCompletaSeguindo)});
+
+    //API Dato - GraphQL
+    fetch('https://graphql.datocms.com/', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'ff9efd86abbf16a3a85696ca399cc3',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        "query": `query {
+          allCommunities {
+            id
+            title
+            imageUrl
+            creatorSlug
+        }
+      }` })
     })
-    .then(function(respostaCompletaSeguindo) {
-      setSeguindo(respostaCompletaSeguindo);
-    })
+    .then((respostaComunidades) => respostaComunidades.json())
+    .then((respostaCompletaComunidades) => {
+      const comunidadesCriadasDato = respostaCompletaComunidades.data.allCommunities;
+      setComunidades(comunidadesCriadasDato);
+    });
+
   }, []);
 
   return (
@@ -88,16 +98,32 @@ export default function Home() {
               const dadosForm = new FormData(e.target);
               
               const comunidade = {
-                id: new Date().toISOString(),
                 title: dadosForm.get('title'),
-                image: dadosForm.get('image'),
+                imageUrl: dadosForm.get('image'),
+                creatorSlug: githubUser,
               }
 
-              // const comunidadesAtualizadas = [...comunidades, comunidade];
-              setComunidades([...comunidades, comunidade]);
+              fetch('/api/comunidades', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(comunidade)
+              })
+              .then(async (response) => {
+                const dados = await response.json();
+                const comunidade = dados.registroCriado;
+                const comunidadesAtualizadas = [...comunidades, comunidade];
+                setComunidades(comunidadesAtualizadas);
+                setComunidadesTitle('');
+                setComunidadesImage('');
+              })
             }}>
+              
               <div>
                 <input
+                value={comunidadesTitle}
+                onChange={(e) => setComunidadesTitle(e.target.value)}
                 placeholder="Qual vai ser o nome da sua comunidade?"
                 name="title"
                 arial-label="Qual vai ser o nome da sua comunidade?"
@@ -107,6 +133,8 @@ export default function Home() {
 
               <div>
                 <input
+                value={comunidadesImage}
+                onChange={(e) => setComunidadesImage(e.target.value)}
                 placeholder="Coloque uma URL oara usarmos de capa"
                 name="image"
                 arial-label="Coloque uma URL oara usarmos de capa"
@@ -129,8 +157,8 @@ export default function Home() {
                   {comunidades.slice(0,3).map((itemAtual) => {
                       return (
                           <li key={itemAtual.id}>
-                              <a href={itemAtual} key={itemAtual}>
-                                  <img src={itemAtual.image} />
+                              <a href={`/communities/${itemAtual.id}`} key={itemAtual}>
+                                  <img src={itemAtual.imageUrl} />
                                   <span>{itemAtual.title}</span>
                               </a>
                           </li>
