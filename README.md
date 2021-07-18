@@ -35,7 +35,7 @@
 
 ## :books: Frameworks and libs
 - [Nextjs](https://nextjs.org/)
-- [Dato CMS](https://bootstrapmade.com/)
+- [Dato CMS](https://www.datocms.com/)
 - [Json Web Token](https://www.npmjs.com/package/jsonwebtoken)
 - [Nookies](https://www.npmjs.com/package/nookies)
 
@@ -55,10 +55,10 @@ yarn install
 ```
 yarn dev
 ```
-<p>4. Access the project's localhost. A porta padrão é 3000</p>
+<p>4. Access the project's localhost. The default port is 3000</p>
 
 ## :interrobang: Problems solution
-<p>To see the problems that arose during development and the solutions that we found, visit the [issues](https://github.com/thamiavicente/alurakut/issues).</p>
+To see the problems that arose during development and the solutions that we found, visit the [issues](https://github.com/thamiavicente/alurakut/issues).</p>
 
 ## :lock: License
 <p>Copyright:copyright: 2020 - Thami A. Vicente</p>
