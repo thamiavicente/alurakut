@@ -35,7 +35,7 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href={`/logout`}>
+          <a href={`/login`}>
             Sair
           </a>
           <div>
@@ -55,6 +55,7 @@ export function AlurakutMenu({ githubUser }) {
 AlurakutMenu.Wrapper = styled.header`
   width: 100%;
   background-color: #308BC5;
+
   .alurakutMenuProfileSidebar {
     background: white;
     position: fixed;
@@ -85,6 +86,7 @@ AlurakutMenu.Wrapper = styled.header`
       text-decoration: none;
       font-weight: 800;
     }
+
     hr {
       margin-top: 12px;
       margin-bottom: 8px;
@@ -92,6 +94,7 @@ AlurakutMenu.Wrapper = styled.header`
       border-bottom-color: #ECF2FA;
     }
   }
+
   .container {
     background-color: #308BC5;
     padding: 7px 16px;
@@ -104,15 +107,18 @@ AlurakutMenu.Wrapper = styled.header`
     @media(min-width: 860px) {
       justify-content: flex-start;
     }
+
     button {
       border: 0;
       background: transparent;
       align-self: center;
       display: inline-block;
+      cursor: pointer;
       @media(min-width: 860px) {
         display: none;
       }
     }
+
     nav {
       display: none;
       @media(min-width: 860px) {
@@ -162,15 +168,15 @@ AlurakutMenu.Logo = styled.img`
   height: 34px;
 `;
 
-function AlurakutMenuProfileSidebar(props) {
+function AlurakutMenuProfileSidebar({ githubUser }) {
   return (
     <div className="alurakutMenuProfileSidebar">
       <div>
-        <img src={`https://github.com/${props.githubUser}.png`} style={{ borderRadius: '8px' }} />
+        <img src={`https://github.com/${githubUser}.png`} style={{ borderRadius: '8px' }} />
         <hr />
         <p>
-          <a className="boxLink" href={`/user/${props.githubUser}`}>
-            @{props.githubUser}
+          <a className="boxLink" href={`/user/${githubUser}`}>
+            @{githubUser}
           </a>
         </p>
         <hr />
@@ -334,6 +340,8 @@ const AlurakutLoginScreen = css`
     --textQuarternaryColor: #C5C6CA;
     --commonRadius: 8px;
   }
+
+
   .loginScreen {
     padding: 16px;
     max-width: 1110px;
@@ -430,9 +438,16 @@ const AlurakutLoginScreen = css`
           display: block;
           border: 0;
           padding: 12px;
+          cursor: pointer;
           border-radius: var(--commonRadius);
           background-color: var(--colorPrimary);
           color: var(--textSecondaryColor);
+        }
+        .validationText {
+          color: var(--colorQuarternary);
+          font-size: 11px;
+          font-weight: bold;
+          padding-bottom: 5px;
         }
       }
     }
@@ -496,5 +511,6 @@ export const AlurakutStyles = css`
       box-shadow: 0px 0px 5px #33333357;
     }
   }
+
   ${AlurakutLoginScreen}
 `;

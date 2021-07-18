@@ -55,6 +55,7 @@ const Box = styled.div `
     color: #FFFFFF;
     border-radius: 10000px;
     background-color: #6F92BB;
+    cursor: pointer;
   }
 `
 
