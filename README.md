@@ -61,4 +61,4 @@ yarn dev
 To see the problems that arose during development and the solutions that we found, visit the [issues](https://github.com/thamiavicente/alurakut/issues)
 
 ## :lock: License
-<p>Copyright:copyright: 2020 - Thami A. Vicente</p>
+<p>Copyright:copyright: 2021 - Thami A. Vicente</p>
