@@ -58,7 +58,7 @@ yarn dev
 <p>4. Access the project's localhost. The default port is 3000</p>
 
 ## :interrobang: Problems solution
-To see the problems that arose during development and the solutions that we found, visit the [issues](https://github.com/thamiavicente/alurakut/issues).</p>
+To see the problems that arose during development and the solutions that we found, visit the [issues](https://github.com/thamiavicente/alurakut/issues)
 
 ## :lock: License
 <p>Copyright:copyright: 2020 - Thami A. Vicente</p>
