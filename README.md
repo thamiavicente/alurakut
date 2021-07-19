@@ -1,4 +1,4 @@
-# :o: Alurakut :o:
+# :o: Alurakut
    
 <p><img src= "https://img.shields.io/static/v1?label=Status&message=Developing&color=green&style=flat"> 
  <img src= "https://img.shields.io/static/v1?label=Language&message=JavaScript&color=yellow&style=flat&"> 
