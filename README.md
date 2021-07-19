@@ -6,7 +6,7 @@
 
 
 ## :clipboard: Description
-<p>This is my final project made during Alura React Immersion.</p>
+<p>Anyone who already used the internet in the 2000s will remember Orkut, a very famous social network. During Alura React Immersion, we made a project based on it, but using the Github API to show followers and following.</p>
 
 ## :scroll: Summary
 * [Description](#clipboard-description)
