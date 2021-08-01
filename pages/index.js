@@ -136,9 +136,9 @@ export default function Home(props) {
                 <input
                 value={comunidadesImage}
                 onChange={(e) => setComunidadesImage(e.target.value)}
-                placeholder="Coloque uma URL oara usarmos de capa"
+                placeholder="Coloque uma URL para usarmos de capa"
                 name="image"
-                arial-label="Coloque uma URL oara usarmos de capa"
+                arial-label="Coloque uma URL para usarmos de capa"
                 />
               </div>
 
